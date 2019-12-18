@@ -1,0 +1,19 @@
+{
+  "name": "books-site",
+  "version": "1.0.0",
+  "description": "Frameworks Exam Fall 2019",
+  "private": true,
+  "scripts": {
+    "start": "cd server && node app.js",
+    "dev": "cd client && npm start",
+    "test": "cd client && npm test",
+    "preinstall": "cd server && npm install",
+    "install": "cd client && npm install",
+    "build": "cd client && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cervm/books-site"
+  },
+  "author": "Marek Cervinka (eaamace@students.eaaa.dk)"
+}
