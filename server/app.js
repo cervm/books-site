@@ -21,6 +21,7 @@ const bookDAL = require('./dal/book_dal')(mongoose);
 mongoose.connect(MONGO_URL, {useNewUrlParser: true, useUnifiedTopology: true})
     .then(async () => {
         console.log("Database connected");
+        await bookDAL.bootstrap();
 
         /**** Routes ****/
         const bookRouter = require('./routers/book_router')(bookDAL);
