@@ -16,12 +16,14 @@ app.use(morgan('combined')); // Log all requests to the console
 
 /**** Database access layers *****/
 const bookDAL = require('./dal/book_dal')(mongoose);
+const userDAL = require('./dal/user_dal')(mongoose);
 
 /**** Start ****/
 mongoose.connect(MONGO_URL, {useNewUrlParser: true, useUnifiedTopology: true})
     .then(async () => {
         console.log("Database connected");
         await bookDAL.bootstrap();
+        await userDAL.bootstrap();
 
         /**** Routes ****/
         const bookRouter = require('./routers/book_router')(bookDAL);
