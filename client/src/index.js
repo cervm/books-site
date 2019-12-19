@@ -9,6 +9,9 @@ import thunk from 'redux-thunk'
 // Our reducer functions lives inside this module
 import reducer from './reducers';
 
+// Stylesheets
+import '../node_modules/bulma/bulma.sass'
+
 // Logging middleware for the store
 const logger = store => next => action => {
     if (!action.type) {
