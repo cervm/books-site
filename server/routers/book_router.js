@@ -18,8 +18,11 @@ module.exports = (dal) => {
 
     router.post('/', (req, res) => {
         let newBook = {
-            text : req.body.text,
-            answers : []
+            title: req.body.title,
+            author: req.body.author,
+            category: req.body.category,
+            price: req.body.price,
+            seller: req.body.seller,
         };
         dal.createBook(newBook).then(newBook => res.json(newBook));
     });
