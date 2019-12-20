@@ -1,3 +1,5 @@
+const bcrypt = require('bcryptjs');
+
 class UserDAL {
     constructor(mongoose) {
         this.mongoose = mongoose;
