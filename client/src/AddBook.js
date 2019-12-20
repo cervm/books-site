@@ -96,7 +96,7 @@ export default class AddBook extends Component {
                 </div>
                 <div className="field">
                     <button className="button is-primary" onClick={this.handleInput} type="submit"
-                            id="QuestionButton">Add Book
+                            id="AddBookButton">Add Book
                     </button>
                 </div>
             </form>
