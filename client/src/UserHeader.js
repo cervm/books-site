@@ -7,9 +7,17 @@ class UserHeader extends Component {
             if (this.props.username) {
                 return (
                     <>
-                        Welcome {this.props.username}.
-                        <button className="button is-small" onClick={
-                            (event) => this.props.logout(event)}>logout</button>
+                        <nav className="level">
+                            <div className="level-left">
+                                Welcome {this.props.username}.
+                                <button className="button is-small" onClick={
+                                    (event) => this.props.logout(event)}>logout</button>
+                            </div>
+                            <div className="level-right">
+                                <p className="level-item"><Link to="/books/add">Add Book</Link></p>
+                                <p className="level-item"><Link to="/admin">Admin</Link></p>
+                            </div>
+                        </nav>
                     </>)
             } else {
                 return <Link to="/login" className="btnText">Login</Link>

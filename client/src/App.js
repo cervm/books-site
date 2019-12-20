@@ -111,8 +111,6 @@ class App extends Component {
                         </Router>
                     </div>
                 </section>
-                <Link to="/books/add">Add Book</Link>
-                <Link to="/admin">Admin</Link>
                 <footer className="footer">
                     <div className="container">
                         <div className="content has-text-centered">
