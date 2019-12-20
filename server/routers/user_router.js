@@ -2,7 +2,7 @@ module.exports = (dal, secret) => {
     let express = require('express');
     let router = express.Router();
 
-    const jwt = require('express-jwt');
+    const jwt = require('jsonwebtoken');
     const bcrypt = require('bcryptjs');
 
     router.post('/create', async (req, res) => {
