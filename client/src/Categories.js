@@ -5,14 +5,14 @@ class Categories extends Component {
     render() {
         return (
             <React.Fragment>
-                <h1>Categories</h1>
-                <ol>
+                <h2 className="title is-2">Categories</h2>
+                <ul>
                     {this.props.categories.map(category =>
                         <li key={category.alias}>
                             <Link to={`/books/category/${category.alias}`}>{category.name}</Link>
                         </li>
                     )}
-                </ol>
+                </ul>
             </React.Fragment>
         );
     }

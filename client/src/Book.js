@@ -6,17 +6,21 @@ class Book extends Component {
         const book = this.props.getBook(this.props.id);
         let content = <p>Loading</p>;
         if (book) {
+            const linkToCategory = `/books/category/${book.category.alias}`;
             content =
                 <React.Fragment>
-                    <h1>{book.title}</h1>
+                    <h3 className="title is-3">{book.title}</h3>
                     <ul>
                         <li>Author: {book.author}</li>
                         <li>Category: {book.category.name}</li>
+                    </ul>
+                    <ul>
                         <li>Price: {book.price}</li>
-                        <li>Seller: {book.seller.name}</li>
+                        <li>Seller: {book.seller.name} ({book.seller.email})</li>
                     </ul>
                     <br/>
-                    <Link to="/">Back</Link>
+                    <Link to="/books">Books Overview </Link> | <Link to={linkToCategory}>Books
+                    in {book.category.name}</Link>
                 </React.Fragment>
         }
 

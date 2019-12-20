@@ -7,13 +7,22 @@ class Books extends Component {
         let content = <p>Loading</p>;
         if (books) {
             content = <React.Fragment>
-                <h1>Books</h1>
-                <ol>
-                    {books.map(book =>
-                        <li key={book.id}>
-                            <Link to={`/books/${book.id}`}>{book.title} {}</Link>
-                        </li>)}
-                </ol>
+                <h2 className="title is-2">Books</h2>
+
+                {books.map(book =>
+                    <Link to={`/books/${book.id}`}>
+                        <article key={book.id} className="book media is-medium">
+                            <div className="media-content">
+                                <div className="content">
+                                    <p>
+                                        <strong>{book.title}</strong>
+                                        <br/>
+                                        {book.author}
+                                    </p>
+                                </div>
+                            </div>
+                        </article>
+                    </Link>)}
             </React.Fragment>
         }
 
