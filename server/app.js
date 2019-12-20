@@ -3,6 +3,7 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const checkJwt = require('express-jwt'); // Check for access tokens automatically
 
 /**** Configuration ****/
 const app = express();
@@ -13,6 +14,29 @@ app.use(express.static(path.resolve('..', 'client', 'build')));
 app.use(cors());
 app.use(express.json()); // Used to parse JSON bodies
 app.use(morgan('combined')); // Log all requests to the console
+
+// Open paths that does not need login. Any route not included here is protected!
+let openPaths = [
+    /^(?!\/api).*/gim, // Open everything that doesn't begin with '/api'
+    '/api/users/authenticate',
+    '/api/users/create',
+    {url: '/api/books', methods: ['GET']},  // Open GET questions, but not POST.
+    {url: '/api/categories', methods: ['GET']}
+];
+
+// Validate the user using authentication. checkJwt checks for auth token.
+const secret = process.env.SECRET || "the cake is a lie";
+if (!process.env.SECRET) console.error("Warning: SECRET is undefined.");
+app.use(checkJwt({secret: secret}).unless({path: openPaths}));
+
+// This middleware checks the result of checkJwt
+app.use((err, req, res, next) => {
+    if (err.name === 'UnauthorizedError') { // If the user didn't authorize correctly
+        res.status(401).json({error: err.message}); // Return 401 with error message.
+    } else {
+        next(); // If no errors, send request to next middleware or route handler
+    }
+});
 
 /**** Database access layers *****/
 const bookDAL = require('./dal/book_dal')(mongoose);
@@ -28,6 +52,9 @@ mongoose.connect(MONGO_URL, {useNewUrlParser: true, useUnifiedTopology: true})
         await userDAL.bootstrap();
 
         /**** Routes ****/
+        const usersRouter = require('./routers/user_router')(userDAL, secret);
+        app.use('/api/users', usersRouter);
+
         const bookRouter = require('./routers/book_router')(bookDAL);
         app.use('/api/books', bookRouter);
 
