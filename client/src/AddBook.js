@@ -27,7 +27,12 @@ export default class AddBook extends Component {
                 "name": "John Snow"
             },
         );
-        this.setState({title: ""})
+        this.setState({
+            title: "",
+            author: "",
+            categoryAlias: "",
+            price: 0,
+        });
     }
 
     getCategory(alias) {
