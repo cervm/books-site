@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Link, Redirect} from "@reach/router";
+import {Link} from "@reach/router";
 import CreateCategory from "./CreateCategory";
 
 class Admin extends Component {
