@@ -123,17 +123,21 @@ export const fetchCategories = _ => async function (dispatch) {
 };
 
 export const postCategory = (alias, name) => async function (dispatch) {
-    const response = await fetch(`${API_URL}/categories`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json; charset=utf-8"
-        },
-        body: JSON.stringify({
-            alias: alias, name: name
-        })
-    });
-    const newCategory = await response.json();
-    dispatch(addCategory(
-        newCategory._id, newCategory.alias, newCategory.name
-    ));
+    if (alias === "" || name === "") return;
+    try {
+        const newCategory = {alias: alias, name: name};
+        const response = await Auth.fetch(`${API_URL}/categories`, {
+            method: "POST",
+            body: JSON.stringify(newCategory)
+        });
+        if (response.status === 401) {
+            dispatch(showAndHideAlert("Login", "You need to login to create categories!", "alert"));
+        } else {
+            await response.json();
+            dispatch(fetchCategories());
+        }
+    } catch (e) {
+        dispatch(showAndHideAlert("Create category error", e.message, "error"));
+        console.error(e);
+    }
 };
