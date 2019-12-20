@@ -16,6 +16,7 @@ app.use(morgan('combined')); // Log all requests to the console
 
 /**** Database access layers *****/
 const bookDAL = require('./dal/book_dal')(mongoose);
+const categoryDAL = require('./dal/category_dal')(mongoose);
 const userDAL = require('./dal/user_dal')(mongoose);
 
 /**** Start ****/
@@ -23,11 +24,15 @@ mongoose.connect(MONGO_URL, {useNewUrlParser: true, useUnifiedTopology: true})
     .then(async () => {
         console.log("Database connected");
         await bookDAL.bootstrap();
+        await categoryDAL.bootstrap();
         await userDAL.bootstrap();
 
         /**** Routes ****/
         const bookRouter = require('./routers/book_router')(bookDAL);
         app.use('/api/books', bookRouter);
+
+        const categoryRouter = require('./routers/category_router')(categoryDAL);
+        app.use('/api/categories', categoryRouter);
 
         // "Redirect" all get requests (except for the routes specified above) to React's entry point (index.html)
         // It's important to specify this route as the very last one to prevent overriding all of the other routes
