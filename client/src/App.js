@@ -7,6 +7,7 @@ import AddBook from "./AddBook";
 import UserHeader from "./UserHeader";
 import Alert from "./Alert";
 import Login from "./Login";
+import Admin from "./Admin";
 
 // Connect wraps a component and makes it a Container component
 import {connect} from "react-redux";
@@ -88,6 +89,10 @@ class App extends Component {
                             <Book path="/books/:id" getBook={id => this.getBook(id)}/>
 
                             <Categories path="/" categories={this.props.categories}/>
+
+                            <Admin path="/admin" categories={this.props.categories}
+                                   onCreateCategory={(alias, name) => this.props.postCategory(alias, name)}
+                            />
 
                             <Books path="/books" getBooks={_ => this.props.books}/>
 
