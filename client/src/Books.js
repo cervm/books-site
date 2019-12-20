@@ -10,8 +10,8 @@ class Books extends Component {
                 <h2 className="title is-2">Books</h2>
 
                 {books.map(book =>
-                    <Link to={`/books/${book.id}`}>
-                        <article key={book.id} className="book media is-medium">
+                    <Link key={book.id} to={`/books/${book.id}`}>
+                        <article className="book media is-medium">
                             <div className="media-content">
                                 <div className="content">
                                     <p>
